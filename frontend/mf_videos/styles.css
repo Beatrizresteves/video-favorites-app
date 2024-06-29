@@ -2,8 +2,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #fbffcd;
-    color: #495057;
+    background-color: #ffff;
+    color: black;
 }
 
 header {
@@ -13,7 +13,7 @@ header {
 
 header h1 {
     margin-bottom: 20px;
-    color: #845415;
+    color: black;
 }
 
 header input[type="text"] {
@@ -29,7 +29,7 @@ header button {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: #001f36;
+    background-color: #e63946;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -37,7 +37,7 @@ header button {
 }
 
 header button:hover {
-    background-color: #0056b3;
+    background-color: #FE5152;
 }
 
 main ul {
@@ -85,6 +85,6 @@ main li .favorite.active {
 
 a {
     text-decoration: none;
-    color: #001f36;
+    color: #FE5152;
     font-weight: 700;
 }

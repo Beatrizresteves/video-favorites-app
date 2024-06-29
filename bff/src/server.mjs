@@ -11,19 +11,16 @@ const apiKey = 'AIzaSyDoI0OjREKgXYach9sdQU6BtzjV8lWeE9o';
 app.use(cors());
 app.use(express.json());
 
-// Obter o caminho do diretório atual
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const favoritesFilePath = path.resolve(__dirname, 'favorites.json');
 
-// Função para inicializar o arquivo favorites.json se ele não existir ou estiver vazio
 function initializeFavoritesFile() {
     if (!fs.existsSync(favoritesFilePath) || fs.readFileSync(favoritesFilePath, 'utf-8').trim() === '') {
         fs.writeFileSync(favoritesFilePath, JSON.stringify([]));
     }
 }
 
-// Função para ler os favoritos do arquivo JSON
 function readFavorites() {
     try {
         initializeFavoritesFile();
@@ -35,7 +32,6 @@ function readFavorites() {
     }
 }
 
-// Função para salvar os favoritos no arquivo JSON
 function saveFavorites(favorites) {
     try {
         fs.writeFileSync(favoritesFilePath, JSON.stringify(favorites, null, 2));
@@ -44,7 +40,6 @@ function saveFavorites(favorites) {
     }
 }
 
-// Endpoint para busca de vídeos
 app.get('/api/search', async (req, res) => {
     const query = req.query.query;
     const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=${apiKey}`);
@@ -52,7 +47,6 @@ app.get('/api/search', async (req, res) => {
     res.json(data);
 });
 
-// Endpoint para adicionar/remover vídeo dos favoritos
 app.post('/api/favorite/:id', (req, res) => {
     const videoId = req.params.id;
     let favorites = readFavorites();
@@ -60,19 +54,17 @@ app.post('/api/favorite/:id', (req, res) => {
     if (favorites.includes(videoId)) {
         favorites = favorites.filter(id => id !== videoId);
         saveFavorites(favorites);
-        res.json({ message: 'Removed from favorites', favorites });
+        res.json({ message: 'Removido dos favoritos', favorites });
     } else {
         favorites.push(videoId);
         saveFavorites(favorites);
-        res.json({ message: 'Added to favorites', favorites });
+        res.json({ message: 'Adicionado aos favoritos', favorites });
     }
 });
 
-// Endpoint para obter os vídeos favoritos
 app.get('/api/favorites', async (req, res) => {
     const favorites = readFavorites();
-    console.log('Loaded favorites:', favorites); // Log para depuração
-
+    console.log('Loaded favorites:', favorites); 
     if (favorites.length === 0) {
         return res.json({ items: [] });
     }
@@ -86,5 +78,4 @@ app.get('/api/favorites', async (req, res) => {
     res.json({ items: favoriteDetails });
 });
 
-// Inicia o servidor na porta 3000
 app.listen(3000, () => console.log('Server running on port 3000'));

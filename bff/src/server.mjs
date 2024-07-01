@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const apiKey = 'AIzaSyDoI0OjREKgXYach9sdQU6BtzjV8lWeE9o'; 
+const API_KEY = 'SUA_API_KEY_DO_YOUTUBE';
 
 app.use(cors());
 app.use(express.json());
